@@ -83,48 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add counter animation for statistics
-    function animateCounter(element, target, duration = 2000) {
-        let start = 0;
-        const increment = target / (duration / 16);
-        
-        function updateCounter() {
-            start += increment;
-            if (start < target) {
-                element.textContent = Math.floor(start);
-                requestAnimationFrame(updateCounter);
-            } else {
-                element.textContent = target;
-            }
-        }
-        updateCounter();
-    }
-
-    // Animate counters when they come into view
-    const counterObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const text = entry.target.textContent;
-                const numbers = text.match(/\d+/g);
-                if (numbers) {
-                    numbers.forEach(num => {
-                        const numElement = document.createElement('span');
-                        numElement.textContent = num;
-                        numElement.style.color = '#10b981';
-                        numElement.style.fontWeight = 'bold';
-                        // Replace the number in the text with the animated element
-                        entry.target.innerHTML = entry.target.innerHTML.replace(num, numElement.outerHTML);
-                        animateCounter(numElement, parseInt(num));
-                    });
-                }
-                counterObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    // Observe evidence boxes for counter animation
-    evidenceBoxes.forEach(box => {
-        counterObserver.observe(box);
-    });
+    // (Removed animated counter effect from evidence boxes to prevent display issues with numbers)
 
     // Add typing effect to hero title
     const heroTitle = document.querySelector('.hero h1');
